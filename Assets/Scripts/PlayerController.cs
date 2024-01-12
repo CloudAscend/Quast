@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    private Rigidbody2D rigid;
+    private Rigidbody rigid;
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        rigid.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * moveSpeed;
+
+        rigid.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed;
+
+        // 1, 1 Up
+        // -1, -1 Down
+        // 1, -1
+        // -1, 1
     }
 }
