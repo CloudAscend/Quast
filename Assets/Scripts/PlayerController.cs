@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
     private Rigidbody rb;
     public Vector3 inputVec;
+    private bool isFacingRight = true;
 
     private void Awake()
     {
@@ -24,9 +25,23 @@ public class PlayerController : MonoBehaviour
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.z = Input.GetAxisRaw("Vertical");
 
-        Vector3 dirVec = inputVec.normalized * moveSpeed;  // Vector2에서 Vector3로 변경
-        rb.velocity = new Vector3(dirVec.x, rb.velocity.y, dirVec.z);  // y 값은 현재의 y 값으로 유지
+        Vector3 dirVec = inputVec.normalized * moveSpeed;
+        rb.velocity = new Vector3(dirVec.x, rb.velocity.y, dirVec.z);
 
-        sprite.flipX = inputVec.x < 0 || inputVec.z > 0;
+     
+        if (inputVec.x != 0)
+        {
+            bool isMovingRight = inputVec.x > 0;
+            if (isMovingRight != isFacingRight)
+            {
+                Flip();
+            }
+        }
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        sprite.flipX = !sprite.flipX;  // 플립된 상태로 유지
     }
 }

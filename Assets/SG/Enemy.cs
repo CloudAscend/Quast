@@ -14,10 +14,12 @@ public class Enemy : MonoBehaviour
     Rigidbody rigid;
     [SerializeField] bool Attacktrue = false;
     float timeSinceLastAttack = 0f;
+    SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -48,5 +50,8 @@ public class Enemy : MonoBehaviour
                 timeSinceLastAttack = Time.time;
             }
         }
+
+       
+        spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
     }
 }
