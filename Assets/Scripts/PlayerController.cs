@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    private Rigidbody rigid;
+    private Rigidbody rb;
+    public Vector3 inputVec;
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -19,12 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.z = Input.GetAxisRaw("Vertical");
 
-        rigid.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed;
-
-        // 1, 1 Up
-        // -1, -1 Down
-        // 1, -1
-        // -1, 1
+        Vector3 dirVec = inputVec.normalized * moveSpeed;  // Vector2에서 Vector3로 변경
+        rb.velocity = new Vector3(dirVec.x, rb.velocity.y, dirVec.z);  // y 값은 현재의 y 값으로 유지
     }
 }
