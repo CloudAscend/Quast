@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 inputVec;
     private bool isFacingRight = true;
     private bool isAttack;
+    //private GameObject enemy;
     private int curAnime;
 
     private void Awake()
@@ -83,6 +84,10 @@ public class PlayerController : MonoBehaviour
         {
             anime.SetTrigger(curAttAnime);
             isAttack = true;
+            //if (enemy != null)
+            //{
+            //    enemy.GetComponent<Enemy>().Damage();
+            //}
             curAnime++;
         }
 
@@ -95,10 +100,27 @@ public class PlayerController : MonoBehaviour
     //    //return true == Physics.BoxCast(transform.position, Vector3.one, out RaycastHit hit, maxDistance);
     //}
 
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Debug.Log(other.gameObject.name);
+    //    //if (other.gameObject.CompareTag("Enemy") && isAttack)
+    //    //{
+    //    //    other.gameObject.GetComponent<Enemy>().Damage();
+    //    //    isAttack = false;
+    //    //}
+    //    if (other.gameObject.CompareTag("Enemy")) { Debug.Log(other.gameObject);  enemy = other.gameObject; }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemey")) enemy = null;
+    //}
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy") && isAttack)
         {
+            if (other.gameObject.GetComponent<Enemy>() != null)
             other.gameObject.GetComponent<Enemy>().Damage();
             isAttack = false;
         }

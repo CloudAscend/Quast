@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         if (!isLive)
             return;
 
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        GameObject player = GameManager.instance.player;
 
         if (player == null)
             return;
