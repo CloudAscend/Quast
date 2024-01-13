@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator anime;
     private Rigidbody rb;
     public Vector3 inputVec;
     private bool isFacingRight = true;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Movement();
+        Motion();
     }
 
     private void Movement()
@@ -43,5 +45,10 @@ public class PlayerController : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
         sprite.flipX = !sprite.flipX;  // 플립된 상태로 유지
+    }
+
+    private void Motion()
+    {
+        
     }
 }

@@ -8,16 +8,10 @@ public class Cannon : MonoBehaviour
     public GameObject CannonPtc;
 
     Rigidbody rb;
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         StartCoroutine(Fire());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     IEnumerator Fire()
