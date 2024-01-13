@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20);
         Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 3);
 
-        Damage();
+        //Damage();
     }
 
     void Awake()
@@ -84,11 +84,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Damage()
+    public void Damage()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            CurHP--;
-        }
+        CurHP--;
     }
 }
