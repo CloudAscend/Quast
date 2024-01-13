@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 inputVec;
     private bool isFacingRight = true;
     private bool isAttack;
+    private int curAnime;
 
     private void Awake()
     {
@@ -63,10 +64,26 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+        string curAttAnime = "Attack1";
+
+        switch (curAnime % 3)
+        {
+            case 0:
+                curAttAnime = "Attack1";
+                break;
+            case 1:
+                curAttAnime = "Attack2";
+                break;
+            case 2:
+                curAttAnime = "Attack3";
+                break;
+        }
+
         if (Input.GetKeyDown(attackKey))
         {
-            anime.SetTrigger("Attack1");
+            anime.SetTrigger(curAttAnime);
             isAttack = true;
+            curAnime++;
         }
 
         if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
