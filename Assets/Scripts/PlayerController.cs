@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey))
         {
-            anime.SetTrigger("Attack");
+            anime.SetTrigger("Attack1");
             isAttack = true;
         }
 
