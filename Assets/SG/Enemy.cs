@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,6 +16,32 @@ public class Enemy : MonoBehaviour
     [SerializeField] bool Attacktrue = false;
     float timeSinceLastAttack = 0f;
     SpriteRenderer spriteRenderer;
+
+    [SerializeField] GameObject DeathEffect;
+    [SerializeField] GameObject item;
+
+    [SerializeField] Slider Hpbar;
+    [SerializeField] Slider Hpbar2;
+    [SerializeField] int CurHP = 10;
+    [SerializeField] int MaxHP = 10;
+
+    [SerializeField] float detectionRange = 5f; // 플레이어 감지 범위 추가
+
+    void Update()
+    {
+        if (CurHP <= 0)
+        {
+            Destroy(Instantiate(DeathEffect,transform.position, transform.rotation),2f);
+            Instantiate(item, transform.position, transform.rotation);
+
+            gameObject.SetActive(false);
+        }
+
+        Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20);
+        Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 3);
+
+        Damage();
+    }
 
     void Awake()
     {
@@ -35,23 +62,33 @@ public class Enemy : MonoBehaviour
         Vector3 dirVec = player.transform.position - transform.position;
         float distanceToPlayer = dirVec.magnitude;
 
-        if (distanceToPlayer > stoppingDistance)
+        if (distanceToPlayer <= detectionRange)
         {
-            Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
-            rigid.MovePosition(rigid.position + new Vector3(nextVec.x, 0, nextVec.z));
-        }
-        else
-        {
-            rigid.velocity = Vector3.zero;
-
-            if (Time.time - timeSinceLastAttack >= attackCooldown && Attacktrue)
+            if (distanceToPlayer > stoppingDistance)
             {
-                Destroy(Instantiate(bulletPrefab, transform.position, Quaternion.identity), 3f);
-                timeSinceLastAttack = Time.time;
+                Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+                rigid.MovePosition(rigid.position + new Vector3(nextVec.x, 0, nextVec.z));
             }
-        }
+            else
+            {
+                rigid.velocity = Vector3.zero;
 
-       
-        spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
+                if (Time.time - timeSinceLastAttack >= attackCooldown && Attacktrue)
+                {
+                    Destroy(Instantiate(bulletPrefab, transform.position, Quaternion.identity), 3f);
+                    timeSinceLastAttack = Time.time;
+                }
+            }
+
+            spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
+        }
+    }
+
+    void Damage()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            CurHP--;
+        }
     }
 }
