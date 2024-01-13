@@ -80,10 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.CompareTag("Enemy") && isAttack)
         {
-            Debug.Log("Work!");
             other.gameObject.GetComponent<Enemy>().Damage();
             isAttack = false;
         }
