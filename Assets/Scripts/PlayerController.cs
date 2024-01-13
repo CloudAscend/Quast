@@ -63,66 +63,46 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void Attack()
-    {
-        string curAttAnime = "Attack1";
-
-        switch (curAnime % 3)
-        {
-            case 0:
-                curAttAnime = "Attack1";
-                break;
-            case 1:
-                curAttAnime = "Attack2";
-                break;
-            case 2:
-                curAttAnime = "Attack3";
-                break;
-        }
-
-        if (Input.GetKeyDown(attackKey))
-        {
-            anime.SetTrigger(curAttAnime);
-            isAttack = true;
-            //if (enemy != null)
-            //{
-            //    enemy.GetComponent<Enemy>().Damage();
-            //}
-            curAnime++;
-        }
-
-        if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
-        else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
-    }
-
-    //private bool isAttack()
+    //private void Attack()
     //{
-    //    //return true == Physics.BoxCast(transform.position, Vector3.one, out RaycastHit hit, maxDistance);
+    //    string curAttAnime = "Attack1";
+
+    //    switch (curAnime % 3)
+    //    {
+    //        case 0:
+    //            curAttAnime = "Attack1";
+    //            break;
+    //        case 1:
+    //            curAttAnime = "Attack2";
+    //            break;
+    //        case 2:
+    //            curAttAnime = "Attack3";
+    //            break;
+    //    }
+
+    //    if (Input.GetKeyDown(attackKey))
+    //    {
+    //        anime.SetTrigger(curAttAnime);
+    //        isAttack = true;
+    //        //if (enemy != null)
+    //        //{
+    //        //    enemy.GetComponent<Enemy>().Damage();
+    //        //}
+    //        curAnime++;
+    //    }
+
+    //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
+    //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
     //}
 
-    //private void OnTriggerEnter(Collider other)
+    //private void OnTriggerStay(Collider other)
     //{
-    //    //Debug.Log(other.gameObject.name);
-    //    //if (other.gameObject.CompareTag("Enemy") && isAttack)
-    //    //{
-    //    //    other.gameObject.GetComponent<Enemy>().Damage();
-    //    //    isAttack = false;
-    //    //}
-    //    if (other.gameObject.CompareTag("Enemy")) { Debug.Log(other.gameObject);  enemy = other.gameObject; }
+    //    if (other.gameObject.CompareTag("Enemy") && isAttack)
+    //    {
+    //        //Debug.Log(other.gameObject.GetComponent<Enemy>());
+    //        if (other.gameObject.GetComponent<Enemy>() != null)
+    //        other.gameObject.GetComponent<Enemy>().Damage();
+    //        isAttack = false;
+    //    }
     //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Enemey")) enemy = null;
-    //}
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy") && isAttack)
-        {
-            if (other.gameObject.GetComponent<Enemy>() != null)
-            other.gameObject.GetComponent<Enemy>().Damage();
-            isAttack = false;
-        }
-    }
 }
