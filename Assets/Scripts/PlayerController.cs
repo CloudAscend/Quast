@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Motion();
-        Attack();
+        //Attack();
     }
 
     private void Movement()
