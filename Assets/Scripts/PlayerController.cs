@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Motion();
-        Attack();
+        //Attack();
     }
 
     private void Movement()
@@ -63,37 +63,37 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void Attack()
-    {
-        string curAttAnime = "Attack1";
+    //private void Attack()
+    //{
+    //    string curAttAnime = "Attack1";
 
-        switch (curAnime % 3)
-        {
-            case 0:
-                curAttAnime = "Attack1";
-                break;
-            case 1:
-                curAttAnime = "Attack2";
-                break;
-            case 2:
-                curAttAnime = "Attack3";
-                break;
-        }
+    //    switch (curAnime % 3)
+    //    {
+    //        case 0:
+    //            curAttAnime = "Attack1";
+    //            break;
+    //        case 1:
+    //            curAttAnime = "Attack2";
+    //            break;
+    //        case 2:
+    //            curAttAnime = "Attack3";
+    //            break;
+    //    }
 
-        if (Input.GetKeyDown(attackKey))
-        {
-            anime.SetTrigger(curAttAnime);
-            isAttack = true;
-            //if (enemy != null)
-            //{
-            //    enemy.GetComponent<Enemy>().Damage();
-            //}
-            curAnime++;
-        }
+    //    if (Input.GetKeyDown(attackKey))
+    //    {
+    //        anime.SetTrigger(curAttAnime);
+    //        isAttack = true;
+    //        //if (enemy != null)
+    //        //{
+    //        //    enemy.GetComponent<Enemy>().Damage();
+    //        //}
+    //        curAnime++;
+    //    }
 
-        //if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
-        //else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
-    }
+    //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
+    //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
+    //}
 
     //private void OnTriggerStay(Collider other)
     //{
