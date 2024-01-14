@@ -10,9 +10,13 @@ public class PlayerAblity : MonoBehaviour
     public GameObject Light;
     public GameObject Ptc;
     public GameObject YellowPtc;
+    public GameObject LightningAura;
+
+    public bool LightningBall = false;
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.instance.fadescript.Fade(true);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -58,6 +62,12 @@ public class PlayerAblity : MonoBehaviour
                 
                     
                     GameManager.instance.playercontroller.Key++;
+                    break;
+                case "LightningBall":
+
+                    AudioManager.instance.PlaySound(transform.position, 3, Random.Range(1f, 1.3f), 1);
+                    LightningAura.SetActive(true);
+                    LightningBall = true;
                     break;
             }
            

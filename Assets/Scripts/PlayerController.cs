@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ChainEffect;
 
 
-
+    public bool potal1 = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -141,15 +141,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.C) && Key > 0)
             {
                 Debug.Log("S");
-              
-                    
-                
-               
+            
                 Destroy(Instantiate(ChainEffect, other.gameObject.transform.position, transform.rotation),2f);
                 Key--;
                 other.gameObject.transform.position = new Vector3(10,40,10);
             }
         }
+
+     
     }
 
     //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);

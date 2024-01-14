@@ -8,6 +8,8 @@ TagManager:
   - Item
   - Enemy
   - Wall
+  - Chain
+  - Potal
   layers:
   - Default
   - TransparentFX

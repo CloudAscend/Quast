@@ -82,10 +82,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1082748410868513333}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.71
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.221
+  m_Value: 0.891
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -236,6 +236,8 @@ MonoBehaviour:
   YDeathEffect: {fileID: 0}
   YDamageEffect: {fileID: 0}
   Yitem: {fileID: 0}
+  GDeathEffect: {fileID: 0}
+  GDamageEffect: {fileID: 0}
   Hpbar: {fileID: 1082748409316362557}
   Hpbar2: {fileID: 1082748409434290230}
   CurHP: 10
@@ -377,7 +379,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.507
+  m_Value: 0.968
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public Enemy enemy;
     public CameraShake camerashake;
     public GameObject player;
+    public FadeScript fadescript;
     // Start is called before the first frame update
     void Start()
     {
+
         instance = this;
     }
 
