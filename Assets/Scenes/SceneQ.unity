@@ -186,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160007814}
   m_LocalRotation: {x: 0.19996412, y: 0.3736123, z: -0.08282785, w: 0.90198}
-  m_LocalPosition: {x: -55.890007, y: 33.66, z: -53.800007}
+  m_LocalPosition: {x: -55.890007, y: 34.46, z: -53.800007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -648,12 +648,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbf151be4eab7f46abca55dd8c3d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyname: 
   speed: 5
   stoppingDistance: 2
   attackCooldown: 2
   playerTag: Player
   bulletPrefab: {fileID: 0}
   Attacktrue: 0
+  DeathEffect: {fileID: 0}
+  DamageEffect: {fileID: 0}
+  item: {fileID: 0}
+  YDeathEffect: {fileID: 0}
+  YDamageEffect: {fileID: 0}
+  Yitem: {fileID: 0}
+  GDeathEffect: {fileID: 0}
+  GDamageEffect: {fileID: 0}
+  Hpbar: {fileID: 0}
+  Hpbar2: {fileID: 0}
+  CurHP: 10
+  MaxHP: 10
+  detectionRange: 5
 --- !u!212 &509261653
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -749,7 +763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517738624}
   m_LocalRotation: {x: 0.21994221, y: -0.37535936, z: 0.07451182, w: 0.8973176}
-  m_LocalPosition: {x: 50.800022, y: 35.92212, z: -50.154636}
+  m_LocalPosition: {x: 25.400011, y: 17.96106, z: -25.077318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -964,8 +978,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942551046}
   m_LocalRotation: {x: -0.01570046, y: 0.7069325, z: 0.015700463, w: 0.7069325}
-  m_LocalPosition: {x: -4.19, y: 0, z: -3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.19, y: 0.8, z: -3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1016894154}
@@ -987,7 +1001,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   sprite: {fileID: 1016894157}
+  anime: {fileID: 0}
+  attackBoundary: {fileID: 0}
+  attackKey: 0
   inputVec: {x: 0, y: 0, z: 0}
+  boxSize: {x: 0, y: 0, z: 0}
+  pos: {fileID: 0}
+  curTime: 0
+  coolTime: 0.5
+  Key: 0
+  ChainEffect: {fileID: 0}
 --- !u!54 &942551049
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1092,7 +1115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d94b5c1ffa7794547b59105c8f561da3, type: 3}
+  m_Sprite: {fileID: -7152759390613953277, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

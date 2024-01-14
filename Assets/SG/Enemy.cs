@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    
+    public string enemyname;
     Animator anim;
     [SerializeField] float speed;
     [SerializeField] float stoppingDistance;
@@ -18,12 +20,24 @@ public class Enemy : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject DeathEffect;
+    [SerializeField] GameObject DamageEffect;
     [SerializeField] GameObject item;
+
+    [SerializeField] GameObject YDeathEffect;
+    [SerializeField] GameObject YDamageEffect;
+    [SerializeField] GameObject Yitem;
+
+    [SerializeField] GameObject GDeathEffect;
+    [SerializeField] GameObject GDamageEffect;
 
     [SerializeField] Slider Hpbar;
     [SerializeField] Slider Hpbar2;
     [SerializeField] int CurHP = 10;
     [SerializeField] int MaxHP = 10;
+
+
+
+
 
     [SerializeField] float detectionRange = 5f; // 플레이어 감지 범위 추가
 
@@ -31,8 +45,24 @@ public class Enemy : MonoBehaviour
     {
         if (CurHP <= 0)
         {
-            Destroy(Instantiate(DeathEffect,transform.position, transform.rotation),2f);
-            Instantiate(item, transform.position, transform.rotation);
+            switch (enemyname)
+            {
+                case "P":
+                    Destroy(Instantiate(DeathEffect, transform.position, transform.rotation), 2f);
+                    Instantiate(item, transform.position, transform.rotation);
+                    break;
+                case "Y":
+                    Destroy(Instantiate(YDeathEffect, transform.position, transform.rotation), 2f);
+                    Instantiate(Yitem, transform.position, transform.rotation);
+                    break;
+                case "G":
+                    Destroy(Instantiate(GDeathEffect, transform.position, transform.rotation), 2f);
+                 
+                    break;
+
+            }
+           
+         
 
             gameObject.SetActive(false);
         }
@@ -40,7 +70,6 @@ public class Enemy : MonoBehaviour
         Hpbar.value = Mathf.Lerp(Hpbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 20);
         Hpbar2.value = Mathf.Lerp(Hpbar2.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 3);
 
-        //Damage();
     }
 
     void Awake()
@@ -50,6 +79,41 @@ public class Enemy : MonoBehaviour
     }
 
     void FixedUpdate()
+    {
+        
+        Move();
+       
+    }
+
+    public void TakeDamage(int damage)
+    {
+        switch (enemyname)
+        {
+            case "P":
+                Destroy(Instantiate(DamageEffect, transform.position, transform.rotation), 3f);
+                break;
+            case "Y":
+                Destroy(Instantiate(YDamageEffect, transform.position, transform.rotation), 3f);
+                break;
+            case "G":
+                Destroy(Instantiate(GDamageEffect, transform.position, transform.rotation), 3f);
+                break;
+
+        }
+      
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player != null)
+        {
+            Vector3 knockbackDirection = (transform.position - player.transform.position).normalized;
+            knockbackDirection.y = 0; 
+            transform.Translate(knockbackDirection * 1.5f, Space.World);
+        }
+
+
+        GameManager.instance.camerashake.Shake();
+        CurHP -= damage;
+    }
+    void Move()
     {
         if (!isLive)
             return;
@@ -83,9 +147,26 @@ public class Enemy : MonoBehaviour
             spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
         }
     }
-
-    public void Damage()
+    private void OnTriggerEnter(Collider other)
     {
-        CurHP--;
+        if(enemyname == "P") { 
+        if (other.gameObject.tag == "Chain")
+        {
+            gameObject.tag = "Untagged";
+            speed = 0;
+        }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (enemyname == "P")
+        {
+            if (other.gameObject.tag == "Chain")
+            {
+                gameObject.tag = "Enemy";
+
+                speed = 5;
+            }
+        }
     }
 }

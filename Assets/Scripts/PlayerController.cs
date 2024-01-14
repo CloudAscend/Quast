@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,20 +15,36 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public Vector3 inputVec;
     private bool isFacingRight = true;
-    private bool isAttack;
-    //private GameObject enemy;
     private int curAnime;
+    public Vector3 boxSize;
+    public Transform pos;
+    [SerializeField]
+    float curTime;
+    public float coolTime = 0.5f;
 
+
+
+
+   
+    public int Key = 0;
+    public GameObject ChainEffect;
+
+
+    public bool potal1 = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
+    }
     private void Update()
     {
         Movement();
         Motion();
-        //Attack();
+        Attack();
     }
 
     private void Movement()
@@ -63,33 +80,76 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    //private void Attack()
-    //{
-    //    string curAttAnime = "Attack1";
+    private void Attack()
+    {
+        string curAttAnime = "Attack1";
 
-    //    switch (curAnime % 3)
-    //    {
-    //        case 0:
-    //            curAttAnime = "Attack1";
-    //            break;
-    //        case 1:
-    //            curAttAnime = "Attack2";
-    //            break;
-    //        case 2:
-    //            curAttAnime = "Attack3";
-    //            break;
-    //    }
+        switch (curAnime % 3)
+        {
+            case 0:
+                curAttAnime = "Attack1";
+                break;
+            case 1:
+                curAttAnime = "Attack2";
+                break;
+            case 2:
+                curAttAnime = "Attack3";
+                break;
+        }
+        if (curTime <= 0)
+        {
+            if (Input.GetKeyDown(attackKey))
+            {
+                AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1f, 1.2f), 1);
+                Collider[] colliders = Physics.OverlapBox(pos.position, boxSize / 2f);
 
-    //    if (Input.GetKeyDown(attackKey))
-    //    {
-    //        anime.SetTrigger(curAttAnime);
-    //        isAttack = true;
-    //        //if (enemy != null)
-    //        //{
-    //        //    enemy.GetComponent<Enemy>().Damage();
-    //        //}
-    //        curAnime++;
-    //    }
+                foreach (Collider collider in colliders)
+                {
+                    if (collider != null)
+                    {
+                        // 태그를 확인하여 Enemy인 경우에만 처리
+                        if (collider.gameObject.tag == "Enemy")
+                        {
+                            // Enemy 컴포넌트를 가져오기
+                            Enemy enemyComponent = collider.gameObject.GetComponent<Enemy>();
+
+                            // Enemy 컴포넌트가 존재하는지 확인
+                            if (enemyComponent != null)
+                            {
+                                AudioManager.instance.PlaySound(transform.position, 1, Random.Range(0.9f, 1f), 1);
+                                enemyComponent.TakeDamage(2);
+                            }
+                        }
+                    }
+                }
+
+                anime.SetTrigger(curAttAnime);
+                curAnime++;
+                curTime = coolTime;
+            }
+        }
+
+        else
+        {
+            curTime -= Time.deltaTime;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Chain")
+        {
+            if (Input.GetKey(KeyCode.C) && Key > 0)
+            {
+                Debug.Log("S");
+            
+                Destroy(Instantiate(ChainEffect, other.gameObject.transform.position, transform.rotation),2f);
+                Key--;
+                other.gameObject.transform.position = new Vector3(10,40,10);
+            }
+        }
+
+     
+    }
 
     //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
     //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
