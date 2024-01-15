@@ -7,6 +7,9 @@ public class Potal : MonoBehaviour
 {
     public string type;
     public Transform NextPotal;
+    [SerializeField] private Platform[] activate;
+    private int actSwitch;
+    [SerializeField] GameObject PotalAura;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,25 @@ public class Potal : MonoBehaviour
 
                     }
                     break;
+                case "BlueSwitch":
+                    for (int i = 0; i < activate.Length; i++)
+                    {
+                        if (activate[i].isSwitch) actSwitch += 1;
+                    }
+                    if ( actSwitch == activate.Length)
+                    {
+                        PotalAura.SetActive(true);
+                    }
+                    if (Input.GetKey(KeyCode.C) && actSwitch == activate.Length)
+                    {
+                        
+                        AudioManager.instance.PlaySound(transform.position, 4, Random.Range(1f, 1.3f), 1);
 
+                        StartCoroutine(Blink());
+
+                    }
+                    actSwitch = 0;
+                    break;
                 case "Yellow":
                     if (Input.GetKey(KeyCode.C))
                     {
@@ -54,5 +75,13 @@ public class Potal : MonoBehaviour
             GameManager.instance.fadescript.Fade(true);
         }
 
+    }
+
+    public void Init()
+    {
+        for (int i = 0; i < activate.Length; i++)
+        {
+            activate[i].isSwitch = false;
+        }
     }
 }
