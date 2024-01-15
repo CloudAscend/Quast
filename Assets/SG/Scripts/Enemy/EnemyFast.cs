@@ -37,7 +37,7 @@ public class EnemyFast : EnemyBase
 
     public void Check()
     {
-        speed -= 12;
+        speed /= 2f;
     }
 
     protected override void Move()
