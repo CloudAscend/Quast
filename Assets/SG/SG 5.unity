@@ -1164,7 +1164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57406510}
   m_LocalRotation: {x: 0.1999641, y: -0.37361237, z: 0.08282786, w: 0.9019799}
-  m_LocalPosition: {x: 72.571434, y: 48.085712, z: -73.85714}
+  m_LocalPosition: {x: 72.57142, y: 48.085712, z: -73.85713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10097,7 +10097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &442628360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20522,6 +20522,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -39.6
       objectReference: {fileID: 0}
+    - target: {fileID: 4912865313169749067, guid: 92c842cafa5ae6147a9ed131115cb444, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4912865313169749078, guid: 92c842cafa5ae6147a9ed131115cb444, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -21598,7 +21602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1071332891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23313,7 +23317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1135034814
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26807,6 +26811,10 @@ PrefabInstance:
       propertyPath: mainEnemy
       value: 
       objectReference: {fileID: 120331045}
+    - target: {fileID: 2311292344321012427, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2311292344321012428, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
       propertyPath: m_Name
       value: GEnemy (3)
@@ -28810,6 +28818,10 @@ PrefabInstance:
       propertyPath: mainEnemy
       value: 
       objectReference: {fileID: 120331045}
+    - target: {fileID: 2311292344321012427, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2311292344321012428, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
       propertyPath: m_Name
       value: GEnemy (2)
@@ -33150,6 +33162,10 @@ PrefabInstance:
       propertyPath: mainEnemy
       value: 
       objectReference: {fileID: 120331045}
+    - target: {fileID: 2311292344321012427, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2311292344321012428, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
       propertyPath: m_Name
       value: GEnemy (4)
@@ -35819,7 +35835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1839747213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37018,7 +37034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906530227}
   m_LocalRotation: {x: 0.19996412, y: 0.3736123, z: -0.08282785, w: 0.90198}
-  m_LocalPosition: {x: -24.7, y: 33.660015, z: -61.8}
+  m_LocalPosition: {x: -159.7, y: 33.660015, z: 470.2}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39260,6 +39276,10 @@ PrefabInstance:
       propertyPath: mainEnemy
       value: 
       objectReference: {fileID: 120331045}
+    - target: {fileID: 2311292344321012427, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2311292344321012428, guid: 19a51e87f559ad942907a660c63d3ae0, type: 3}
       propertyPath: m_Name
       value: GEnemy (1)
@@ -125639,7 +125659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6481246723756023630}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 27, y: 0.000015258789, z: -11}
+  m_LocalPosition: {x: -108, y: 0.000015258789, z: 521}
   m_LocalScale: {x: 0.7000001, y: 0.7, z: 0.70000005}
   m_ConstrainProportionsScale: 0
   m_Children:

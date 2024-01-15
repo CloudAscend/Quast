@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,9 +24,13 @@ public class PlayerController : MonoBehaviour
     public float coolTime = 0.5f;
 
 
+    public int CurHP;
+    public int MaxHP;
+    public Slider HPbar;
 
 
-   
+
+
     public int Key = 0;
     public GameObject ChainEffect;
 
@@ -42,6 +47,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        HPbar.value = Mathf.Lerp(HPbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4);
         Movement();
         Motion();
         Attack();
