@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class FastEnemy : MonoBehaviour
 {
 
     public string enemyname;
@@ -29,8 +29,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject GDeathEffect;
     [SerializeField] GameObject GDamageEffect;
-
-    [SerializeField] GameObject mainEnemy;
 
     [SerializeField] Slider Hpbar;
     [SerializeField] Slider Hpbar2;
@@ -171,11 +169,5 @@ public class Enemy : MonoBehaviour
                 speed = 5;
             }
         }
-    }
-
-    private void OnDisable()
-    {
-        if (mainEnemy != null)
-            mainEnemy.GetComponent<EnemyFast>().Check();
     }
 }

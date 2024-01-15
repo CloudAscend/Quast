@@ -36,8 +36,8 @@ Material:
     - _RimWidth: 3.3
     - _Shininess: 1
     m_Colors:
-    - _InnerColor: {r: 0.61139554, g: 0.04690275, b: 0.8773585, a: 1}
-    - _RimColor: {r: 0.6263181, g: 0.111308835, b: 0.6320754, a: 1}
+    - _InnerColor: {r: 0.61380243, g: 0, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

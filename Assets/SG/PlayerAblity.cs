@@ -69,6 +69,9 @@ public class PlayerAblity : MonoBehaviour
                     LightningAura.SetActive(true);
                     LightningBall = true;
                     break;
+                case "Speed":
+                    GameManager.instance.player.GetComponent<PlayerController>().moveSpeed *= 4;
+                    break;
             }
            
 

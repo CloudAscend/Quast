@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class EnemyBase : MonoBehaviour
 {
-
-    public string enemyname;
     Animator anim;
-    [SerializeField] float speed;
+    public float speed;
     [SerializeField] float stoppingDistance;
     [SerializeField] float attackCooldown = 2f;
     [SerializeField] string playerTag = "Player";
     [SerializeField] GameObject bulletPrefab;
-    bool isLive = true;
-    Rigidbody rigid;
+    protected bool isLive = true;
+    protected Rigidbody rigid;
     [SerializeField] bool Attacktrue = false;
     float timeSinceLastAttack = 0f;
     SpriteRenderer spriteRenderer;
@@ -22,15 +20,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject DeathEffect;
     [SerializeField] GameObject DamageEffect;
     [SerializeField] GameObject item;
-
-    [SerializeField] GameObject YDeathEffect;
-    [SerializeField] GameObject YDamageEffect;
-    [SerializeField] GameObject Yitem;
-
-    [SerializeField] GameObject GDeathEffect;
-    [SerializeField] GameObject GDamageEffect;
-
-    [SerializeField] GameObject mainEnemy;
 
     [SerializeField] Slider Hpbar;
     [SerializeField] Slider Hpbar2;
@@ -43,29 +32,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float detectionRange = 5f; // 플레이어 감지 범위 추가
 
-    void Update()
+    protected virtual void Update()
     {
         if (CurHP <= 0)
         {
-            switch (enemyname)
-            {
-                case "P":
-                    Destroy(Instantiate(DeathEffect, transform.position, transform.rotation), 2f);
-                    Instantiate(item, transform.position, transform.rotation);
-                    break;
-                case "Y":
-                    Destroy(Instantiate(YDeathEffect, transform.position, transform.rotation), 2f);
-                    Instantiate(Yitem, transform.position, transform.rotation);
-                    break;
-                case "G":
-                    Destroy(Instantiate(GDeathEffect, transform.position, transform.rotation), 2f);
-
-                    break;
-
-            }
-
-
-
+            Destroy(Instantiate(DeathEffect, transform.position, transform.rotation), 2f);
+            Instantiate(item, transform.position, transform.rotation);
             gameObject.SetActive(false);
         }
 
@@ -74,7 +46,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -89,21 +61,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        switch (enemyname)
-        {
-            case "P":
-                Destroy(Instantiate(DamageEffect, transform.position, transform.rotation), 3f);
-                break;
-            case "Y":
-                Destroy(Instantiate(YDamageEffect, transform.position, transform.rotation), 3f);
-                break;
-            case "G":
-                Destroy(Instantiate(GDamageEffect, transform.position, transform.rotation), 3f);
-                break;
-
-        }
-
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        Destroy(Instantiate(DamageEffect, transform.position, transform.rotation), 3f);
+  
+        GameObject player = GameManager.instance.player;
         if (player != null)
         {
             Vector3 knockbackDirection = (transform.position - player.transform.position).normalized;
@@ -115,7 +75,7 @@ public class Enemy : MonoBehaviour
         GameManager.instance.camerashake.Shake();
         CurHP -= damage;
     }
-    void Move()
+    protected virtual void Move()
     {
         if (!isLive)
             return;
@@ -132,7 +92,7 @@ public class Enemy : MonoBehaviour
         {
             if (distanceToPlayer > stoppingDistance)
             {
-                Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+                Vector3 nextVec = dirVec.normalized * speed;
                 rigid.MovePosition(rigid.position + new Vector3(nextVec.x, 0, nextVec.z));
             }
             else
@@ -149,33 +109,27 @@ public class Enemy : MonoBehaviour
             spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (enemyname == "P")
-        {
-            if (other.gameObject.tag == "Chain")
-            {
-                gameObject.tag = "Untagged";
-                speed = 0;
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (enemyname == "P")
-        {
-            if (other.gameObject.tag == "Chain")
-            {
-                gameObject.tag = "Enemy";
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (enemyname == "P")
+    //    {
+    //        if (other.gameObject.tag == "Chain")
+    //        {
+    //            gameObject.tag = "Untagged";
+    //            speed = 0;
+    //        }
+    //    }
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (enemyname == "P")
+    //    {
+    //        if (other.gameObject.tag == "Chain")
+    //        {
+    //            gameObject.tag = "Enemy";
 
-                speed = 5;
-            }
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (mainEnemy != null)
-            mainEnemy.GetComponent<EnemyFast>().Check();
-    }
+    //            speed = 5;
+    //        }
+    //    }
+    //}
 }

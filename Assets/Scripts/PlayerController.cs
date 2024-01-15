@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator anime;
 
@@ -108,10 +108,12 @@ public class PlayerController : MonoBehaviour
                     if (collider != null)
                     {
                         // 태그를 확인하여 Enemy인 경우에만 처리
-                        if (collider.gameObject.tag == "Enemy")
+                        if (collider.gameObject.CompareTag("Enemy"))
                         {
                             // Enemy 컴포넌트를 가져오기
+                           
                             Enemy enemyComponent = collider.gameObject.GetComponent<Enemy>();
+                            EnemyBase enemyCom = collider.gameObject.GetComponent<EnemyBase>();
 
                             // Enemy 컴포넌트가 존재하는지 확인
                             if (enemyComponent != null)
@@ -119,6 +121,11 @@ public class PlayerController : MonoBehaviour
                                 AudioManager.instance.PlaySound(transform.position, 1, Random.Range(0.9f, 1f), 1);
                                 enemyComponent.TakeDamage(2);
                             }
+                            if (enemyCom != null)
+                            {
+                                AudioManager.instance.PlaySound(transform.position, 1, Random.Range(0.9f, 1f), 1);
+                                enemyCom.TakeDamage(2);
+                            }    
                         }
                     }
                 }
