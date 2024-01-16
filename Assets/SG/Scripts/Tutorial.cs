@@ -25,10 +25,19 @@ public class Tutorial : MonoBehaviour
         dialogImage.enabled = false;
     }
 
-    public void OnInterface()
+    //public void OnInterface()
+    //{
+    //    dialogText.enabled = true;
+    //    StartCoroutine(SendMessage());
+    //}
+
+    private void Update()
     {
-        dialogText.enabled = true;
-        StartCoroutine(SendMessage());
+        if (Input.GetKeyDown(nextInput))
+        {
+            dialogText.enabled = true;
+            StartCoroutine(SendMessage());
+        }
     }
 
     public void Event()
