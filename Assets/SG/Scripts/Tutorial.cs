@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 public class Tutorial : MonoBehaviour
 {
@@ -24,16 +25,10 @@ public class Tutorial : MonoBehaviour
         dialogImage.enabled = false;
     }
 
-    private void Update()
+    public void OnInterface()
     {
-        if (Input.GetKeyDown(nextInput))
-        {
-            if (!isTutorial)
-                return;
-            Debug.Log("Suntory");
-            isTutorial = false;
-            StartCoroutine(SendMessage());
-        }
+        dialogText.enabled = true;
+        StartCoroutine(SendMessage());
     }
 
     public void Event()
@@ -48,33 +43,37 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator SendMessage()
     {
-        Debug.Log(curValue);
-        Message curMess = message[curValue];
-
-        if (curMess.messages.Count <= curMessage)
-        { 
-            isTutorial = false;
-            dialog.GetComponent<Animator>().SetBool("OnDialog", false);
-            GameManager.instance.player.GetComponent<PlayerController>().isEvent = false;
-            dialogImage.enabled = false;
-            curMessage = 0;
-        }
-        else
+        if (isTutorial)
         {
-            yield return new WaitForSeconds(delayMessage);
-            char[] letter = curMess.messages[curMessage].ToCharArray();
-            string sentence = " ";
+            isTutorial = false;
 
-            dialogText.text = sentence;
+            Message curMess = message[curValue];
 
-            for (int c = 0; c < letter.Length; c++)
+            if (curMess.messages.Count <= curMessage)
+            {
+                isTutorial = false;
+                dialog.GetComponent<Animator>().SetBool("OnDialog", false);
+                GameManager.instance.player.GetComponent<PlayerController>().isEvent = false;
+                dialogImage.enabled = false;
+                curMessage = 0;
+            }
+            else
             {
                 yield return new WaitForSeconds(delayMessage);
-                sentence += letter[c];
+                char[] letter = curMess.messages[curMessage].ToCharArray();
+                string sentence = " ";
+
                 dialogText.text = sentence;
+
+                for (int c = 0; c < letter.Length; c++)
+                {
+                    yield return new WaitForSeconds(delayMessage);
+                    sentence += letter[c];
+                    dialogText.text = sentence;
+                }
+                isTutorial = true;
+                curMessage += 1;
             }
-            curMessage += 1;
-            isTutorial = true;
         }
     }
 }
