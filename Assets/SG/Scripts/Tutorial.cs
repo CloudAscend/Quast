@@ -44,7 +44,7 @@ public class Tutorial : MonoBehaviour
         Debug.Log(curValue);
         Message curMess = message[curValue];
 
-        if (curMess.messages.Count == curMessage)
+        if (curMess.messages.Count <= curMessage)
         { 
             isTutorial = false;
             dialog.GetComponent<Animator>().SetBool("OnDialog", false);
@@ -62,6 +62,7 @@ public class Tutorial : MonoBehaviour
                 yield return new WaitForSeconds(delayMessage);
                 dialogText.text += letter[c];
             }
+            dialogText.text = "* ";
             isTutorial = true;
 
             curMessage += 1;

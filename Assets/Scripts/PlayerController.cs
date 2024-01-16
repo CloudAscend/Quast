@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public Slider HPbar;
 
 
+    public bool isEvent;
 
 
     public int Key = 0;
@@ -47,10 +48,19 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        HPbar.value = Mathf.Lerp(HPbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4);
-        Movement();
-        Motion();
-        Attack();
+        if (HPbar != null)
+            HPbar.value = Mathf.Lerp(HPbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4);
+        if (!isEvent)
+        {
+            Movement();
+            Attack();
+            Motion();
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            anime.SetBool("Run", false);
+        }
     }
 
     private void Movement()
