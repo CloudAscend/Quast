@@ -9778,9 +9778,10 @@ GameObject:
   - component: {fileID: 6269974661996887446}
   - component: {fileID: 6076212896279258636}
   - component: {fileID: 4655843050237690172}
+  - component: {fileID: 3494892276055606401}
   m_Layer: 0
   m_Name: StoneMissile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14702,6 +14703,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3494892276055606401
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179731430944818096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1894118, y: 0.18941183, z: 0.18941183}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6179997746887164040
 GameObject:
   m_ObjectHideFlags: 0
