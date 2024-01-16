@@ -54,15 +54,18 @@ public class Tutorial : MonoBehaviour
         }
         else
         {
-            dialogText.text = "* ";
+            yield return new WaitForSeconds(delayMessage);
             char[] letter = curMess.messages[curMessage].ToCharArray();
+            string sentence = " * ";
+
+            dialogText.text = sentence;
 
             for (int c = 0; c < letter.Length; c++)
             {
                 yield return new WaitForSeconds(delayMessage);
-                dialogText.text += letter[c];
+                sentence += letter[c];
+                dialogText.text = sentence;
             }
-            dialogText.text = "* ";
             isTutorial = true;
 
             curMessage += 1;
