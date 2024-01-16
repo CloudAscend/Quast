@@ -38,9 +38,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] int MaxHP = 10;
 
 
-
-
-
     [SerializeField] float detectionRange = 5f; // 플레이어 감지 범위 추가
 
     void Update()

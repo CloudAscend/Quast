@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Tutorial : MonoBehaviour
 {
+    public static Tutorial instance;
+
     [SerializeField] private Message[] message;
     [SerializeField] private GameObject dialog;
     [SerializeField] private Image dialogImage;
-    [SerializeField] private Text dialogText;
+    [SerializeField] private TMP_Text dialogText;
     [SerializeField] private KeyCode nextInput;
     [SerializeField] private float delayMessage = 0.1f;
     private bool isTutorial;
@@ -17,6 +19,7 @@ public class Tutorial : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         dialogImage.enabled = false;
     }
 
@@ -56,7 +59,7 @@ public class Tutorial : MonoBehaviour
         {
             yield return new WaitForSeconds(delayMessage);
             char[] letter = curMess.messages[curMessage].ToCharArray();
-            string sentence = " * ";
+            string sentence = " ";
 
             dialogText.text = sentence;
 
