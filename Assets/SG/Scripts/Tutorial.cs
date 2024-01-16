@@ -46,7 +46,8 @@ public class Tutorial : MonoBehaviour
         dialog.GetComponent<Animator>().SetBool("OnDialog", true);
         dialogImage.enabled = true;
         isTutorial = true;
-        GameManager.instance.player.GetComponent<PlayerController>().isEvent = true;
+        if (GameManager.instance.player != null)
+            GameManager.instance.player.GetComponent<PlayerController>().isEvent = true;
         StartCoroutine(SendMessage());
     }
 
