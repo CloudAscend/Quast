@@ -174,6 +174,17 @@ public class PlayerController : MonoBehaviour
      
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Stone")
+        {
+            CurHP--;
+            Destroy(other.gameObject);
+            GameManager.instance.camerashake.Shake();
+        }
+
+
+    }
     //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
     //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
     //}

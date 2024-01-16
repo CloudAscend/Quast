@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e2066ae4ec931144a1ac5ecdd27b8ab, type: 3}
-  m_Name: Message 4
+  m_Name: Message 9
   m_EditorClassIdentifier: 
   messages:
-  - "\uD798\uC774 \uBF55\uCC28\uB294 \uAE30\uBD84\uC774\uC57C..!"
-  - "\uC9D1\uB3C4 \uBC00\uC5B4\uBC84\uB9B4 \uC218 \uC788\uC744 \uAC70 \uAC19\uC544!"
+  - "\uC5EC\uAE34 \uBB50\uC9C0.."
+  - "\uBA54\uBAA8\uAC00 \uC788\uB124"
+  - "(\uC55E\uC5D0 \uBCF4\uC774\uB294 \uB3CC\uB4E4\uC744 \uBC1F\uC544 \uD3EC\uD0C8\uC744
+    \uC5F4\uC5B4\uC57C \uD574.   \uADF8\uB7F0\uB370 \uADF8\uB0E5 \uBB34\uC791\uC704\uB85C
+    \uBC1F\uC73C\uBA74 \uC548 \uB3FC. )"

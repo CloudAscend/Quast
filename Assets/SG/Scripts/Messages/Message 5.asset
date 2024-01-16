@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e2066ae4ec931144a1ac5ecdd27b8ab, type: 3}
-  m_Name: Message 4
+  m_Name: Message 5
   m_EditorClassIdentifier: 
   messages:
-  - "\uD798\uC774 \uBF55\uCC28\uB294 \uAE30\uBD84\uC774\uC57C..!"
-  - "\uC9D1\uB3C4 \uBC00\uC5B4\uBC84\uB9B4 \uC218 \uC788\uC744 \uAC70 \uAC19\uC544!"
+  - "\uAE38\uC774 \uC5F4\uB838\uC5B4!"
