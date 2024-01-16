@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Message 2
   m_EditorClassIdentifier: 
   messages:
-  - Fuck You!
-  - Hello, Young Lady!
+  - "\uC774 \uBAAC\uC2A4\uD130\uB4E4\uC740 \uBB50\uC57C.."
+  - "\uC815\uD5CC\uC774 \uB2EE\uC558\uC5B4..!"
