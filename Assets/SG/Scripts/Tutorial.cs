@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
     private bool isTutorial;
     private int curValue = -1;
     private int curMessage = 0;
+    private float timeRate;
 
     private void Awake()
     {
@@ -25,8 +26,11 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(nextInput) && isTutorial)
+        if (Input.GetKeyDown(nextInput))
         {
+            if (!isTutorial)
+                return;
+            Debug.Log("Suntory");
             isTutorial = false;
             StartCoroutine(SendMessage());
         }
@@ -69,9 +73,8 @@ public class Tutorial : MonoBehaviour
                 sentence += letter[c];
                 dialogText.text = sentence;
             }
-            isTutorial = true;
-
             curMessage += 1;
+            isTutorial = true;
         }
     }
 }
