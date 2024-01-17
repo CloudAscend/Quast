@@ -14,6 +14,18 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        AudioListener existingListener = FindObjectOfType<AudioListener>();
+
+        // 이미 오디오 리스너가 있으면 이를 비활성화
+        if (existingListener != null)
+        {
+            existingListener.enabled = false;
+        }
+        else
+        {
+            // 오디오 리스너가 없으면 생성
+            gameObject.AddComponent<AudioListener>();
+        }
         instance = this;
         aud = gameObject.GetComponent<AudioSource>();
 

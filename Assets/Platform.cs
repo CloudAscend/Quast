@@ -38,6 +38,8 @@ public class Platform : MonoBehaviour
         else if (other.gameObject.tag == "Player" && !isSwitch)
         {
             isSwitch = true;
+            AudioManager.instance.PlaySound(transform.position, 7, Random.Range(1f, 1.3f), 1);
+
         }
     }
     IEnumerator Blink()

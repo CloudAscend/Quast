@@ -10,6 +10,7 @@ public class Potal : MonoBehaviour
     [SerializeField] private Platform[] activate;
     private int actSwitch;
     [SerializeField] GameObject PotalAura;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class Potal : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+
             switch (type)
             {
                 case "Blue":
@@ -60,8 +62,48 @@ public class Potal : MonoBehaviour
                     {
                         AudioManager.instance.PlaySound(transform.position, 4, Random.Range(1f, 1.3f), 1);
                         StartCoroutine(Blink());
+                        StartCoroutine(AudioManager.instance.SwitchSong(0));
 
                     }
+                    break;
+                case "Yellowf":
+                    if (Input.GetKey(KeyCode.C))
+                    {
+                        AudioManager.instance.PlaySound(transform.position, 4, Random.Range(1f, 1.3f), 1);
+                        StartCoroutine(Blink());
+                        StartCoroutine(AudioManager.instance.SwitchSong(2));
+
+                    }
+                    break;
+                case "SoundBlue":
+                    if (Input.GetKey(KeyCode.C) && GameManager.instance.playercontroller.potal1)
+                    {
+                        AudioManager.instance.PlaySound(transform.position, 4, Random.Range(1f, 1.3f), 1);
+                        StartCoroutine(AudioManager.instance.SwitchSong(1));
+
+                        StartCoroutine(Blink());
+
+                    }
+                    break;
+                case "SoundBlueSwitch":
+                    for (int i = 0; i < activate.Length; i++)
+                    {
+                        if (activate[i].isSwitch) actSwitch += 1;
+                    }
+                    if (actSwitch == activate.Length)
+                    {
+                        PotalAura.SetActive(true);
+                    }
+                    if (Input.GetKey(KeyCode.C) && actSwitch == activate.Length)
+                    {
+
+                        AudioManager.instance.PlaySound(transform.position, 4, Random.Range(1f, 1.3f), 1);
+                        StartCoroutine(AudioManager.instance.SwitchSong(0));
+
+                        StartCoroutine(Blink());
+
+                    }
+                    actSwitch = 0;
                     break;
             }
         }
@@ -84,4 +126,5 @@ public class Potal : MonoBehaviour
             activate[i].isSwitch = false;
         }
     }
+ 
 }

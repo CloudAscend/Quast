@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
             }
 
 
+            AudioManager.instance.PlaySound(transform.position, 5, Random.Range(0.9f, 1f), 1);
 
             gameObject.SetActive(false);
         }
@@ -107,7 +108,6 @@ public class Enemy : MonoBehaviour
             knockbackDirection.y = 0;
             transform.Translate(knockbackDirection * 1.5f, Space.World);
         }
-
 
         GameManager.instance.camerashake.Shake();
         CurHP -= damage;
