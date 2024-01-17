@@ -8,14 +8,9 @@ public class EnemyBase : MonoBehaviour
     Animator anim;
     public float speed;
     [SerializeField] float stoppingDistance;
-    [SerializeField] float attackCooldown = 2f;
-    [SerializeField] string playerTag = "Player";
-    [SerializeField] GameObject bulletPrefab;
     protected bool isLive = true;
     protected Rigidbody rigid;
-    [SerializeField] bool Attacktrue = false;
-    float timeSinceLastAttack = 0f;
-    SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject DeathEffect;
     [SerializeField] GameObject DamageEffect;
@@ -23,8 +18,8 @@ public class EnemyBase : MonoBehaviour
 
     [SerializeField] Slider Hpbar;
     [SerializeField] Slider Hpbar2;
-    [SerializeField] int CurHP = 10;
-    [SerializeField] int MaxHP = 10;
+    public int CurHP = 10;
+    public int MaxHP = 10;
 
 
 
@@ -37,7 +32,8 @@ public class EnemyBase : MonoBehaviour
         if (CurHP <= 0)
         {
             Destroy(Instantiate(DeathEffect, transform.position, transform.rotation), 2f);
-            Instantiate(item, transform.position, transform.rotation);
+            if (item != null)
+                Instantiate(item, transform.position, transform.rotation);
             gameObject.SetActive(false);
         }
 
@@ -98,38 +94,9 @@ public class EnemyBase : MonoBehaviour
             else
             {
                 rigid.velocity = Vector3.zero;
-
-                if (Time.time - timeSinceLastAttack >= attackCooldown && Attacktrue)
-                {
-                    Destroy(Instantiate(bulletPrefab, transform.position, Quaternion.identity), 3f);
-                    timeSinceLastAttack = Time.time;
-                }
             }
 
             spriteRenderer.flipX = dirVec.x < 0 || dirVec.z > 0;
         }
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (enemyname == "P")
-    //    {
-    //        if (other.gameObject.tag == "Chain")
-    //        {
-    //            gameObject.tag = "Untagged";
-    //            speed = 0;
-    //        }
-    //    }
-    //}
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (enemyname == "P")
-    //    {
-    //        if (other.gameObject.tag == "Chain")
-    //        {
-    //            gameObject.tag = "Enemy";
-
-    //            speed = 5;
-    //        }
-    //    }
-    //}
 }

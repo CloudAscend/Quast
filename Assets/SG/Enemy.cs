@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
 
         }
 
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        GameObject player = GameManager.instance.player;
         if (player != null)
         {
             Vector3 knockbackDirection = (transform.position - player.transform.position).normalized;
