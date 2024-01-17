@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,7 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float curTime;
     public float coolTime = 0.5f;
-
+    [SerializeField] Color playerA;
+    public bool NeverDie = false;
 
     public int CurHP;
     public int MaxHP;
@@ -35,10 +39,13 @@ public class PlayerController : MonoBehaviour
     public int Key = 0;
     public GameObject ChainEffect;
 
-
+    public AudioSource audioSrc;
     public bool potal1 = false;
+    public bool isMoving = false;
+    private bool isDeath = false;
     private void Awake()
     {
+        audioSrc = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
     }
     private void OnDrawGizmos()
@@ -48,10 +55,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        MoveSfx();
+        Die();
         if (HPbar != null)
             HPbar.value = Mathf.Lerp(HPbar.value, (float)CurHP / (float)MaxHP, Time.deltaTime * 4);
         if (!isEvent)
         {
+            if (!isDeath)
             Movement();
             Attack();
             Motion();
@@ -84,7 +94,17 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    IEnumerator NeverDieS()
+    {
+        playerA.a = 0.5f;
+        sprite.color = playerA;
 
+        NeverDie = true;
+        yield return new WaitForSeconds(2f);
+        NeverDie = false;
+        playerA.a = 1f;
+        sprite.color = playerA;
+    }
     private void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -164,7 +184,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.C) && Key > 0)
             {
                 Debug.Log("S");
-            
+            AudioManager.instance.PlaySound(transform.position, 6, Random.Range(0.9f, 1f), 1);
+
                 Destroy(Instantiate(ChainEffect, other.gameObject.transform.position, transform.rotation),2f);
                 Key--;
                 other.gameObject.transform.position = new Vector3(10,40,10);
@@ -176,27 +197,81 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Stone")
+        if (other.gameObject.tag == "Stone" && !NeverDie)
         {
-            CurHP--;
+            StartCoroutine(NeverDieS());
+            CurHP -= 2;
             Destroy(other.gameObject);
             GameManager.instance.camerashake.Shake();
         }
+        if (other.gameObject.tag == "Lightning" && !NeverDie)
+        {
+            AudioManager.instance.PlaySound(transform.position, 3, Random.Range(0.9f, 1f), 1);
 
+            StartCoroutine(NeverDieS());
+            CurHP -= 3;
+            GameManager.instance.camerashake.Shake();
+        }
+        if (other.gameObject.tag == "Enemy" && !NeverDie)
+        {
+            StartCoroutine(NeverDieS());
+            CurHP -= 1;
+            GameManager.instance.camerashake.Shake();
+        }
 
     }
-    //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
-    //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
-    //}
+    void Die()
+    {
+        if (CurHP <= 0 && !isDeath)
+        {
+            isDeath = true;
+            anime.SetTrigger("Death");
+            StartCoroutine(Fadein());
+        }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Enemy") && isAttack)
-    //    {
-    //        //Debug.Log(other.gameObject.GetComponent<Enemy>());
-    //        if (other.gameObject.GetComponent<Enemy>() != null)
-    //        other.gameObject.GetComponent<Enemy>().Damage();
-    //        isAttack = false;
-    //    }
-    //}
-}
+    }
+    IEnumerator Fadein()
+    {
+        yield return new WaitForSeconds(3);
+        GameManager.instance.fadescript.Fade(false);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("SG 1");
+
+    }
+    void MoveSfx()
+    {
+        if (rb.velocity.x != 0|| rb.velocity.z != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+        if (isMoving)
+        {
+            if (!audioSrc.isPlaying)
+            {
+                audioSrc.Play();
+            }
+        }
+        else
+        {
+            audioSrc.Stop();
+        }
+    }
+        //    if (sprite.flipX) attackBoundary.center = new Vector3(-1.2f, 1.4f, -1.2f);
+        //    else attackBoundary.center = new Vector3(1.2f, 1.4f, 1.2f);
+        //}
+
+        //private void OnTriggerStay(Collider other)
+        //{
+        //    if (other.gameObject.CompareTag("Enemy") && isAttack)
+        //    {
+        //        //Debug.Log(other.gameObject.GetComponent<Enemy>());
+        //        if (other.gameObject.GetComponent<Enemy>() != null)
+        //        other.gameObject.GetComponent<Enemy>().Damage();
+        //        isAttack = false;
+        //    }
+        //}
+    }

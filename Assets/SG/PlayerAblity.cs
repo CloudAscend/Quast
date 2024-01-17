@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class PlayerAblity : MonoBehaviour
 {
     public Rigidbody rb;
@@ -14,6 +14,7 @@ public class PlayerAblity : MonoBehaviour
     public GameObject LightningAura;
     public Slider MassSlider;
     public bool LightningBall = false;
+    public GameObject KeyUi;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerAblity : MonoBehaviour
         MassSlider.maxValue = 5f; // 최대값을 6으로 설정
     }
 
+   
     void Update()
     {
         MassSlider.value = Mathf.Lerp(MassSlider.value, MassSlider.value = rb.mass, Time.deltaTime * 4); 
@@ -35,7 +37,7 @@ public class PlayerAblity : MonoBehaviour
             YellowPtc.SetActive(false);
         }
 
-        if (rb.mass > 5)
+        if (rb.mass >=3)
         {
             Light.SetActive(true);
         }
@@ -69,14 +71,27 @@ public class PlayerAblity : MonoBehaviour
                     GameManager.instance.player.GetComponent<PlayerController>().moveSpeed *= 4;
                     break;
             }
+           
 
             AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1f, 1.3f), 1);
             Destroy(other.gameObject);
         }
+        if (other.gameObject.tag == "Ending")
+        {
+            GameManager.instance.fadescript.Fade(false);
+            Invoke("Scene", 2f);
+        }
+   
+
     }
 
     void PtcOff()
     {
         Ptc.SetActive(false);
     }
+    void Scene()
+    {
+        SceneManager.LoadScene("SG 7");
+    }
+
 }

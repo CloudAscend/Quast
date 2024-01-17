@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial instance;
@@ -14,22 +15,23 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private TMP_Text dialogText;
     [SerializeField] private KeyCode nextInput;
     [SerializeField] private float delayMessage = 0.1f;
+    [SerializeField] private AudioClip textSoundClip; // 추가: 텍스트 소리 파일
+    private AudioSource textSound; // 추가: AudioSource 컴포넌트
     private bool isTutorial;
     private int curValue = -1;
     private int curMessage = 0;
-    private float timeRate;
 
     private void Awake()
     {
         instance = this;
         dialogImage.enabled = false;
-    }
 
-    //public void OnInterface()
-    //{
-    //    dialogText.enabled = true;
-    //    StartCoroutine(SendMessage());
-    //}
+        // 추가: AudioSource 초기화
+        textSound = gameObject.AddComponent<AudioSource>();
+        textSound.clip = textSoundClip;
+        textSound.loop = false;
+        textSound.playOnAwake = false;
+    }
 
     private void Update()
     {
@@ -75,12 +77,19 @@ public class Tutorial : MonoBehaviour
 
                 dialogText.text = sentence;
 
+                // 추가: 텍스트 사운드 재생
+                textSound.Play();
+
                 for (int c = 0; c < letter.Length; c++)
                 {
                     yield return new WaitForSeconds(delayMessage);
                     sentence += letter[c];
                     dialogText.text = sentence;
                 }
+
+                // 추가: 텍스트 사운드 멈춤
+                textSound.Stop();
+
                 isTutorial = true;
                 curMessage += 1;
             }
