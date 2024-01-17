@@ -48,4 +48,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("IntroScenes");
         settingpanel.SetActive(false);
     }
+
+    public void EscapeGame()
+    {
+        Application.Quit();
+    }
 }
